@@ -147,7 +147,7 @@ if __name__ == "__main__":
     a = -1
     b = -19
     N = 1
-    prime_bound = 100
+    prime_bound = 7
 
     #maximal_prop = lambda a, b, c, d: (a + c) % 2 == 0 and (b + d) % 2 == 0  # disc = 11
     maximal_prop = maximal_order_congruences(a, b)
@@ -162,6 +162,6 @@ if __name__ == "__main__":
 
     S = CuspForms(-b, 2)
     f = S.newforms()[0]
-    qf = f.q_expansion(prime_bound)
+    qf = f.q_expansion(prime_bound+1)
     for p in sorted(data):
         print(f"Calculated a_{p}: {data[p][1]}, Real a_{p}: {qf[p]}")

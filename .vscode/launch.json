@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Sage Python",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "python": "/Applications/SageMath.app/Contents/Frameworks/Sage.framework/Versions/Current/bin/python3"
+    }
+  ]
+}
