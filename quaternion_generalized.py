@@ -29,7 +29,7 @@ def number_of_units(a, b):
     return len(get_units(a, b))
 
 
-def sols_of_norm(m, a, b):  # in the algebra
+def sols_of_norm(a, b, m):  # in the algebra
     sols = []
     A, i, j, k = algebra_info(a, b)
     bound = ceil(sqrt(m)) + 1  # super loose bound
@@ -44,41 +44,41 @@ def sols_of_norm(m, a, b):  # in the algebra
     return sols
 
 
-def max_order_solutions_of_norm(m, a, b, maximal_prop):  # in the max. order
-    all_sols = sols_of_norm(m, a, b)
+def max_order_solutions_of_norm(a, b, m, maximal_prop):  # in the max. order
+    all_sols = sols_of_norm(a, b, m)
     return [
         (a, b, c, d, q) for (a, b, c, d, q) in all_sols
         if maximal_prop(a, b, c, d)
     ]
 
 
-def nontrivial_filter_norm(m, a, b, maximal_prop, nontrivial_prop):  # subject to extra cond.
+def nontrivial_filter_norm(a, b, m, maximal_prop, nontrivial_prop):  # subject to extra cond.
     return [
         (x, y, z, w, q)
         for (x, y, z, w, q)
-        in max_order_solutions_of_norm(m, a, b, maximal_prop)
+        in max_order_solutions_of_norm(a, b, m, maximal_prop)
         if nontrivial_prop(x, y, z, w)
     ]
 
 
-def orbits_mod_maximal_order(m, a, b, maximal_prop):
-    sols = max_order_solutions_of_norm(m, a, b, maximal_prop)
+def orbits_mod_maximal_order(a, b, m, maximal_prop):
+    sols = max_order_solutions_of_norm(a, b, m, maximal_prop)
     num_units = number_of_units(a, b)
     return len(sols) / num_units
 
 
-def nontrivial_orbits_mod_maximal_order(m, a, b, maximal_prop,
+def nontrivial_orbits_mod_maximal_order(a, b, m, maximal_prop,
                                         nontrivial_prop):
-    sols = nontrivial_filter_norm(m, a, b, maximal_prop, nontrivial_prop)
+    sols = nontrivial_filter_norm(a, b, m, maximal_prop, nontrivial_prop)
     num_units = number_of_units(a, b)
     return len(sols) / num_units
 
 
-def hecke_operator_matrix(p, a, b, maximal_prop, nontrivial_prop):
+def hecke_operator_matrix(a, b, maximal_prop, nontrivial_prop, p):
     N = 4 * p
-    Tpf11 = orbits_mod_maximal_order(N, a, b, maximal_prop)
+    Tpf11 = orbits_mod_maximal_order(a, b, N, maximal_prop)
     Tpfc1 = p + 1 - Tpf11
-    Tpf1c = nontrivial_orbits_mod_maximal_order(2 * N, a, b, maximal_prop,
+    Tpf1c = nontrivial_orbits_mod_maximal_order(a, b, 2 * N, maximal_prop,
                                                 nontrivial_prop)
     Tpfcc = p + 1 - Tpf1c
     return [[Tpf11, Tpfc1], [Tpf1c, Tpfcc]]
@@ -123,8 +123,7 @@ def bad_primes(a, b, N):
 
     return bad
 
-def hecke_eigenvalues_by_prime(a, b, N, prime_bound,
-                               maximal_prop, nontrivial_prop):
+def hecke_eigenvalues_by_prime(a, b, maximal_prop, nontrivial_prop, N, prime_bound):
     bad = set(bad_primes(a, b, N))
     data = {}
 
@@ -134,8 +133,7 @@ def hecke_eigenvalues_by_prime(a, b, N, prime_bound,
         if p in bad:
             continue
 
-        mat = hecke_operator_matrix(p, a, b,
-                                     maximal_prop, nontrivial_prop)
+        mat = hecke_operator_matrix(a, b, maximal_prop, nontrivial_prop, p)
         M = Matrix(QQ, mat)
         eigs = M.eigenvalues()
 
@@ -145,9 +143,9 @@ def hecke_eigenvalues_by_prime(a, b, N, prime_bound,
 
 if __name__ == "__main__":
     a = -1
-    b = -19
+    b = -11
     N = 1
-    prime_bound = 20
+    prime_bound = 30
 
     #maximal_prop = lambda a, b, c, d: (a + c) % 2 == 0 and (b + d) % 2 == 0  # disc = 11
     maximal_prop = maximal_order_congruences(a, b)
@@ -156,8 +154,7 @@ if __name__ == "__main__":
     )
 
     data = hecke_eigenvalues_by_prime(
-        a, b, N, prime_bound,
-        maximal_prop, nontrivial_prop
+        a, b, maximal_prop, nontrivial_prop, N, prime_bound
     )
 
     S = CuspForms(-b, 2)
