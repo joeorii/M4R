@@ -58,20 +58,6 @@ Run:
 conda activate m4r
 ```
 
-### 5. Verify the installation
-
-You can check that the required packages are available by running:
-
-```bash
-python -c "from sage.all import *; import itertools; import numpy; import pandas; print('All dependencies work')"
-```
-
-If the installation was successful, the terminal will print:
-
-```text
-All dependencies work
-```
-
 ## Usage
 
 To run the example with discriminant 11 and level 1, use:
