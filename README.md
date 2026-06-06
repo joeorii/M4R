@@ -12,10 +12,3 @@ This repository contains Python code used for explicit computations related to q
 
 - Python 3
 - Any additional packages listed in `requirements.txt`
-
-## Usage
-
-Run an example using:
-
-```bash
-python3 example_d11_N1.py
