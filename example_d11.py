@@ -1,5 +1,8 @@
 """
-This file is a tester file for the example discriminant 11 and level 1.
+This file tests the functions implemented in file JL_algorithm.py for the
+quaternion algebra of discriminant 11 and level 1. It computes a table of
+quaternionic Hecke eigenvalues for good primes and compares them with the 
+corresponding classical modular-form coefficients.
 """
 from sage.all import *
 import pandas as pd
@@ -11,31 +14,22 @@ from JL_algorithm import (
 
 
 def compute_dataframe():
-    # Quaternion algebra parameters
+    """
+    This function returns a table containing the good primes, the quaternionic
+    Hecke eigenvalues, and the corresponding classical Fourier coefficients.
+    """
     a = -1
     b = -11
-
-    # Level parameter for bad primes
     N = 1
-
-    # Compute up to this prime
     prime_bound = 20
-
-    # Maximal order congruence conditions
     maximal_prop = maximal_order_congruences(a, b)
-
-    # Extra congruence condition defining the nontrivial class
     nontrivial_prop = lambda A, B, C, D: (
         (A + C + 2 * D) % 4 == 0 and
         (B + 2 * C - D) % 4 == 0
     )
-
-    # Compute Hecke eigenvalues from your quaternionic setup
     data = hecke_eigenvalues_by_prime(
         a, b, maximal_prop, nontrivial_prop, N, prime_bound
     )
-
-    # Compute the classical modular form coefficients for comparison
     S = CuspForms(-b, 2)
     f = S.newforms()[0]
     qf = f.q_expansion(prime_bound + 1)
@@ -51,15 +45,19 @@ def compute_dataframe():
             "EV": eig2,
             "a_p": qf[p],
         })
-
     return pd.DataFrame(rows)
 
 
 def print_table(df):
+    """
+    df is the table produced by the function compute_dataframe. 
+    This function prints this table.
+    """
     print("\nComputed data:\n")
     print(df.to_string(index=False))
 
 def main():
+    """This function constructs and prints the table."""
     df = compute_dataframe()
     print_table(df)
 

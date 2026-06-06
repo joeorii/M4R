@@ -1,5 +1,6 @@
 """
-This is the file containing the main algorithm to compute the Hecke eigenvalues.
+This file contains the main computational methods used in the
+explicit Jacquet-Langlands examples in Section 6 of the thesis.
 """
 from sage.all import *
 import itertools
@@ -205,7 +206,7 @@ def bad_primes(a, b, N):
             break
         finite_primes.append(p)
 
-    bad = [2]
+    bad = []
     for p in finite_primes:
         if d % p == 0 or N % p == 0:
             bad.append(p)
