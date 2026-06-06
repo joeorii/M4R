@@ -50,13 +50,15 @@ conda env create -f environment.yml
 
 This creates the Conda environment named `m4r`.
 
-## Usage
+## Activating the environment
 
 To activate the Conda environment, run:
 
 ```bash
 conda activate m4r
 ```
+
+## Usage
 
 To run the example with discriminant 11 and level 1, use:
 
