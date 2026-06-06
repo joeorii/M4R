@@ -1,0 +1,8 @@
+name: m4r
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - sage
+  - numpy
+  - pandas
