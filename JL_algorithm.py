@@ -210,7 +210,7 @@ def bad_primes(a, b, N):
         if d % p == 0 or N % p == 0:
             bad.append(p)
 
-    return []
+    return bad
 
 
 def hecke_eigenvalues_by_prime(a, b, maximal_prop, nontrivial_prop, N, prime_bound):
