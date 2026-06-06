@@ -1,3 +1,6 @@
+"""
+This is the file containing the algorithm.
+"""
 from sage.all import *
 import itertools
 import numpy as np
@@ -202,12 +205,12 @@ def bad_primes(a, b, N):
             break
         finite_primes.append(p)
 
-    bad = []
+    bad = [2]
     for p in finite_primes:
         if d % p == 0 or N % p == 0:
             bad.append(p)
 
-    return bad
+    return []
 
 
 def hecke_eigenvalues_by_prime(a, b, maximal_prop, nontrivial_prop, N, prime_bound):

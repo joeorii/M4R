@@ -146,8 +146,6 @@ if __name__ == "__main__":
     b = -11
     N = 1
     prime_bound = 30
-
-    #maximal_prop = lambda a, b, c, d: (a + c) % 2 == 0 and (b + d) % 2 == 0  # disc = 11
     maximal_prop = maximal_order_congruences(a, b)
     nontrivial_prop = lambda a, b, c, d: (
         (a + c + 2*d) % 4 == 0 and (b + 2*c - d) % 4 == 0

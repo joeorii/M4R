@@ -1,3 +1,6 @@
+"""
+This file is a tester file for the example discriminant 19 and level 1.
+"""
 from sage.all import *
 import pandas as pd
 
@@ -16,7 +19,7 @@ def compute_dataframe():
     N = 1
 
     # Compute up to this prime
-    prime_bound = 200
+    prime_bound = 100
 
     # Maximal order congruence conditions
     maximal_prop = maximal_order_congruences(a, b)
@@ -41,13 +44,11 @@ def compute_dataframe():
     for p in sorted(data):
         eigs = data[p]
 
-        eig1 = eigs[0] if len(eigs) > 0 else ""
         eig2 = eigs[1] if len(eigs) > 1 else ""
 
         rows.append({
             "Prime": p,
-            "Trivial EV": eig1,
-            "Nontrivial EV": eig2,
+            "EV": eig2,
             "a_p": qf[p],
         })
 
@@ -61,7 +62,7 @@ def print_table(df):
 
 def save_latex_table(
     df,
-    filename="JLdisc11.tex",
+    filename="JLdisc19.tex",
     caption="Hecke eigenvalue comparison",
     label="tab:hecke"
 ):
