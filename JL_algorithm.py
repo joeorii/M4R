@@ -1,5 +1,5 @@
 """
-This is the file containing the algorithm.
+This is the file containing the main algorithm to compute the Hecke eigenvalues.
 """
 from sage.all import *
 import itertools
