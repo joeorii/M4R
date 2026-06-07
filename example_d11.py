@@ -21,7 +21,7 @@ def compute_dataframe():
     a = -1
     b = -11
     N = 1
-    prime_bound = 20
+    prime_bound = 100
     maximal_prop = maximal_order_congruences(a, b)
     nontrivial_prop = lambda A, B, C, D: (
         (A + C + 2 * D) % 4 == 0 and
